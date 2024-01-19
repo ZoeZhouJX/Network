@@ -102,11 +102,8 @@ int main()
         if (readBytes < 0)
         {
             perror("read error");
-            exit(-1);
-        }
-        else if (readBytes == 0)
-        {
-            /* todo... 资源问题 */
+            close(acceptfd);
+            break;
         }
         else
         {
@@ -120,7 +117,6 @@ int main()
         }
     }
 
-    close(acceptfd);
     close(sockfd);
 
     return 0;
