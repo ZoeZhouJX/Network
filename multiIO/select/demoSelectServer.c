@@ -11,7 +11,7 @@
 #include <time.h>
 #include <ctype.h>
 
-#define SERVER_PORT 8080
+#define SERVER_PORT 8888
 #define MAX_LISTEN 128
 
 #define BUFFER_SIZE 128

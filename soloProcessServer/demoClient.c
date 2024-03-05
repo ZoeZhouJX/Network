@@ -52,12 +52,18 @@ int main()
 
     while (1)
     {
+#if 0
         strncpy(buffer, "加油 254", sizeof(buffer) - 1);
-
         write(sockfd, buffer, sizeof(buffer));
 
-        read(sockfd, receiveBuffer, sizeof(receiveBuffer) - 1);
+        read(sockfd, receiveBuffer, sizeof(receiveBuffer));
         printf("receive:%s\n", receiveBuffer);
+#else
+        int num = 0x12345678;
+        write(sockfd, (void *)&num, sizeof(num));
+
+        sleep(5);
+#endif
     }
 
     /* 休息5s */

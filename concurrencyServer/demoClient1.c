@@ -10,7 +10,7 @@
 #include <error.h>
 
 #define SERVER_PORT 8888
-#define SERVER_IP "172.28.106.66"
+#define SERVER_IP   "172.28.106.66"
 #define BUFFER_SIZE 128
 
 int main()
@@ -43,38 +43,27 @@ int main()
         exit(-1);
     }
 
-    /* 写缓冲区 */
-    char writeBuffer[BUFFER_SIZE];
-    memset(writeBuffer, 0, sizeof(writeBuffer));
+    char buffer[BUFFER_SIZE];
+    memset(buffer, 0, sizeof(buffer));
 
-    /* 读缓冲区 */
     char recvBuffer[BUFFER_SIZE];
     memset(recvBuffer, 0, sizeof(recvBuffer));
 
-    int readBytes = 0;
     while (1)
     {
-        printf("input:");
-        scanf("%s", writeBuffer);
+#if 1
+        strncpy(buffer, "123456", sizeof(buffer) - 1);
+        write(sockfd, buffer, sizeof(buffer));
 
-        /* 带上字符串的结束符'\0' */
-        write(sockfd, writeBuffer, strlen(writeBuffer) + 1);
+        read(sockfd, recvBuffer, sizeof(recvBuffer));
+        printf("recv:%s\n", recvBuffer);
+#else
 
-        /* 接收数据 */
-        readBytes = read(sockfd, recvBuffer, sizeof(recvBuffer) - 1);
-        if (readBytes < 0)
-        {
-            perror("read error");
-            exit(-1);
-        }
-        else if (readBytes == 0)
-        {
-            printf("readBytes == 0\n");
-        }
-        else
-        {
-            printf("recv:%s\n", recvBuffer);
-        }
+        int num = 0X12345678;
+        write(sockfd, (void *)&num, sizeof(num));
+
+        sleep(5);
+#endif
     }
 
     /* 休息5S */

@@ -99,7 +99,7 @@ int main()
     while (1)
     {
         readBytes = read(acceptfd, buffer, sizeof(buffer));
-        if (readBytes < 0)
+        if (readBytes <= 0)
         {
             perror("read error");
             close(acceptfd);
